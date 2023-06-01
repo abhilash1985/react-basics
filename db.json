@@ -1,0 +1,28 @@
+{
+  "superheroes": [
+    {
+      "userId": 1,
+      "id": 1,
+      "name": "Spider Man",
+      "alterEgo": "Peter Parker"
+    },
+    {
+      "userId": 1,
+      "id": 2,
+      "name": "Batman",
+      "alterEgo": "Bruce Wayne"
+    },
+    {
+      "userId": 1,
+      "id": 3,
+      "name": "Supermand",
+      "alterEgo": "Clark Kent"
+    },
+    {
+      "userId": 1,
+      "id": 4,
+      "name": "WonderWoman",
+      "alterEgo": "Princess Diana"
+    }
+  ]
+}
