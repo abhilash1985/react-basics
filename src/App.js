@@ -29,7 +29,7 @@ import { RQSuperHeroesPage } from "./components/RQSuperHeroes.page";
 
 const queryClient = new QueryClient()
 
-function App2() {
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -61,7 +61,7 @@ function App2() {
   );
 }
 
-function App() {
+function App2() {
   return (
     <div className="App">
       <PostForm />
