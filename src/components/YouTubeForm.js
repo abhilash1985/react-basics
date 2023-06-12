@@ -4,16 +4,30 @@ import { DevTool } from "@hookform/devtools";
 
 let renderCount = 0;
 
+// If using TypeScript - (data: formValues)
+// const formValues = {
+//   username: String,
+//   email: String,
+//   channel: String,
+// }
+
+
 const YouTubeForm = () => {
   const form = useForm();
-  const { register, control } = form;
+  // In Typescript declare types
+  // const form = useForm<formValues>();
+  const { register, control, handleSubmit } = form;
   // const { name, ref, onChange, onBlur } = register("username");
   renderCount++;
+
+  const onSubmit = (data) => {
+    console.log('Form Submitted', data)
+  }
 
   return (
     <div>
       <h1>YouTubeForm ({renderCount / 2})</h1>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username">Username</label>
         <input type="text" id="username" {...register("username")} />
 
