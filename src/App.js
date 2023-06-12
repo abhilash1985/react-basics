@@ -26,10 +26,19 @@ import PostForm from "./components/PostForm";
 import { SuperHeroesPage } from "./components/SuperHeroes.page";
 import { HomePage } from "./components/Home.page";
 import { RQSuperHeroesPage } from "./components/RQSuperHeroes.page";
+import YouTubeForm from "./components/YouTubeForm";
 
 const queryClient = new QueryClient()
 
 function App() {
+  return (
+    <div className="App">
+      <YouTubeForm />
+    </div>
+  )
+}
+
+function App1() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
