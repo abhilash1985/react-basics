@@ -25,8 +25,8 @@ const YouTubeForm = () => {
   };
 
   return (
-    <div>
-      <h1>YouTubeForm ({renderCount / 2})</h1>
+    <div className="ytform">
+      <h1>YTForm ({renderCount / 2})</h1>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
@@ -91,6 +91,7 @@ const YouTubeForm = () => {
         <div className="form-control">
           <label htmlFor="channel">Channel</label>
           <input type="text" id="channel" {...register("channel")} />
+          <p className="error">{errors.channel?.message}</p>
         </div>
 
         <button>Submit</button>

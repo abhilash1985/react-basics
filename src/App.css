@@ -1,7 +1,12 @@
-.label {
+label {
   font-weight: bold;
   display: flex;
   margin-bottom: 5px;
+}
+
+.ytform {
+  width: 500px;
+  margin-left: 40%;
 }
 
 input[type='text'],
@@ -19,7 +24,13 @@ input[type='data'] {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
-  margin-left: 40%;
+  
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
 }
 
 .App {
