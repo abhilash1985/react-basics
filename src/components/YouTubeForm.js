@@ -39,7 +39,7 @@ const YouTubeForm = () => {
   });
   // In Typescript declare types
   // const form = useForm<formValues>();
-  const { register, control, handleSubmit, formState, watch } = form;
+  const { register, control, handleSubmit, formState, watch, getValues } = form;
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -60,6 +60,10 @@ const YouTubeForm = () => {
     });
     return () => subscription.unsubscribe()
   }, [watch]);
+
+  const handleGetValues = () => {
+    console.log("Get Values", getValues())
+  }
 
   return (
     <div className="ytform">
@@ -223,6 +227,8 @@ const YouTubeForm = () => {
             <button type="button" onClick={() => append({ number: "" })}>
               Add Phone Number
             </button>
+
+            <button type="button" onClick={handleGetValues}>Get Values</button>
           </div>
         </div>
 
