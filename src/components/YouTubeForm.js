@@ -9,6 +9,7 @@ let renderCount = 0;
 //   username: String,
 //   email: String,
 //   channel: String,
+//   phoneNumbers: String[],
 // }
 
 const YouTubeForm = () => {
@@ -19,7 +20,12 @@ const YouTubeForm = () => {
       return {
         username: data.name,
         email: data.email,
-        channel: "Channel9"
+        channel: "Channel9",
+        social: {
+          twitter: "",
+          facebook: "",
+        },
+        phoneNumbers: ["", ""]
       }
     }
   });
@@ -102,6 +108,26 @@ const YouTubeForm = () => {
           <label htmlFor="channel">Channel</label>
           <input type="text" id="channel" {...register("channel")} />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id="twitter" {...register("social.twitter")} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input type="text" id="facebook" {...register("social.facebook")} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primary-phone">Primary Phone Number</label>
+          <input type="text" id="primary-phone" {...register("phoneNumbers.0")} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="secondary-phone">Secondary Phone Number</label>
+          <input type="text" id="secondary-phone" {...register("phoneNumbers.1")} />
         </div>
 
         <button>Submit</button>
