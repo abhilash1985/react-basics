@@ -49,7 +49,7 @@ const YouTubeForm = () => {
     setValue,
   } = form;
 
-  const { errors, touchedFields, dirtyFields } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty } = formState;
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -88,7 +88,7 @@ const YouTubeForm = () => {
     });
   };
 
-  console.log({ touchedFields, dirtyFields });
+  console.log({ touchedFields, dirtyFields, isDirty });
 
   return (
     <div className="ytform">
