@@ -16,6 +16,7 @@ let renderCount = 0;
 // }
 
 const YouTubeForm = () => {
+  // useForm and Default Values
   const form = useForm({
     defaultValues: async () => {
       const response = await fetch(
@@ -36,6 +37,7 @@ const YouTubeForm = () => {
         dob: new Date("2023-06-13"),
       };
     },
+    mode: "all",
   });
   // In Typescript declare types
   // const form = useForm<formValues>();
