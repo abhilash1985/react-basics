@@ -33,13 +33,21 @@ const YouTubeForm = () => {
         phoneNumbers: ["", ""],
         phNumbers: [{ number: "" }],
         age: 0,
-        dob: new Date(),
+        dob: new Date("2023-06-13"),
       };
     },
   });
   // In Typescript declare types
   // const form = useForm<formValues>();
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -56,13 +64,26 @@ const YouTubeForm = () => {
 
   useEffect(() => {
     const subscription = watch((value) => {
-      console.log(value)
+      console.log(value);
     });
-    return () => subscription.unsubscribe()
+    return () => subscription.unsubscribe();
   }, [watch]);
 
   const handleGetValues = () => {
-    console.log("Get Values", getValues())
+    console.log("Get Values", getValues());
+    console.log(
+      "Username and Social",
+      getValues(["username", "age", "social"])
+    );
+  };
+
+  const handleSetValue = () => {
+    setValue("username", "New Name");
+    setValue("email", "", {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    })
   }
 
   return (
@@ -206,7 +227,7 @@ const YouTubeForm = () => {
           />
         </div>
 
-        <div>
+        <div className="form-control">
           <label>List of phone numbers</label>
           <div>
             {fields.map((field, index) => {
@@ -227,12 +248,20 @@ const YouTubeForm = () => {
             <button type="button" onClick={() => append({ number: "" })}>
               Add Phone Number
             </button>
-
-            <button type="button" onClick={handleGetValues}>Get Values</button>
           </div>
         </div>
 
-        <button>Submit</button>
+        <div className="form-control">
+          <button type="button" onClick={handleGetValues}>
+            Get Values
+          </button>
+
+          <button type="button" onClick={handleSetValue}>
+            Set Value
+          </button>
+
+          <button type="button">Submit</button>
+        </div>
       </form>
       <DevTool control={control} />
     </div>

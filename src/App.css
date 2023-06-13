@@ -9,6 +9,15 @@ label {
   margin-left: 30%;
 }
 
+button {
+  margin-left: 10px;
+}
+
+.form-control {
+  text-align: left !important;
+  margin-top: 5px;
+}
+
 input[type='text'],
 input[type='email'],
 input[type='number'],
