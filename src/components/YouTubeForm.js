@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 let renderCount = 0;
@@ -10,13 +10,18 @@ let renderCount = 0;
 //   email: String,
 //   channel: String,
 //   phoneNumbers: String[],
+//   phNumbers: {
+//     number: String,
+//   }[]
 // }
 
 const YouTubeForm = () => {
   const form = useForm({
-    defaultValues: async() => {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
-      const data = await response.json()
+    defaultValues: async () => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users/1"
+      );
+      const data = await response.json();
       return {
         username: data.name,
         email: data.email,
@@ -25,14 +30,19 @@ const YouTubeForm = () => {
           twitter: "",
           facebook: "",
         },
-        phoneNumbers: ["", ""]
-      }
-    }
+        phoneNumbers: ["", ""],
+        phNumbers: [{ number: "" }],
+      };
+    },
   });
   // In Typescript declare types
   // const form = useForm<formValues>();
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
+  const { fields, append, remove } = useFieldArray({
+    name: "phNumbers",
+    control,
+  });
   // const { name, ref, onChange, onBlur } = register("username");
   renderCount++;
 
@@ -81,20 +91,20 @@ const YouTubeForm = () => {
                   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                 message: "Invalid Email Format",
               },
-                validate: {
-                  notAdmin: (fieldValue) => {
-                    return (
-                      fieldValue !== "admin@example.com" ||
-                      "Enter a different email address"
-                    );
-                  },
-                  notBlackListed: (fieldValue) => {
-                    return (
-                      !fieldValue.endsWith("baddomain.com") ||
-                      "This domain is not supported"
-                    );
-                  },
+              validate: {
+                notAdmin: (fieldValue) => {
+                  return (
+                    fieldValue !== "admin@example.com" ||
+                    "Enter a different email address"
+                  );
                 },
+                notBlackListed: (fieldValue) => {
+                  return (
+                    !fieldValue.endsWith("baddomain.com") ||
+                    "This domain is not supported"
+                  );
+                },
+              },
               required: {
                 value: true,
                 message: "Email is required",
@@ -122,12 +132,44 @@ const YouTubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="primary-phone">Primary Phone Number</label>
-          <input type="text" id="primary-phone" {...register("phoneNumbers.0")} />
+          <input
+            type="text"
+            id="primary-phone"
+            {...register("phoneNumbers.0")}
+          />
         </div>
 
         <div className="form-control">
           <label htmlFor="secondary-phone">Secondary Phone Number</label>
-          <input type="text" id="secondary-phone" {...register("phoneNumbers.1")} />
+          <input
+            type="text"
+            id="secondary-phone"
+            {...register("phoneNumbers.1")}
+          />
+        </div>
+
+        <div>
+          <label>List of phone numbers</label>
+          <div>
+            {fields.map((field, index) => {
+              return (
+                <div className="form-control" key={field.id}>
+                  <input
+                    type="text"
+                    {...register(`phNumbers.${index}.number`)}
+                  />
+                  {index > 0 && (
+                    <button type="button" onClick={() => remove(index)}>
+                      Remove
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+            <button type="button" onClick={() => append({ number: "" })}>
+              Add Phone Number
+            </button>
+          </div>
         </div>
 
         <button>Submit</button>
