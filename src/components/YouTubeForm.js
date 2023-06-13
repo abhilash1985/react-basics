@@ -49,7 +49,7 @@ const YouTubeForm = () => {
     setValue,
   } = form;
 
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -276,7 +276,7 @@ const YouTubeForm = () => {
             Set Value
           </button>
 
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!isDirty || !isValid}>Submit</button>
         </div>
       </form>
       <DevTool control={control} />
