@@ -205,7 +205,15 @@ const YouTubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input type="text" id="twitter" {...register("social.twitter")} />
+          <input
+            type="text"
+            id="twitter"
+            {...register("social.twitter", {
+              disabled: watch("channel") === "",
+              required: "Enter Twitter Profile",
+            })}
+          />
+          <p className="error">{errors.social?.twitter?.message}</p>
         </div>
 
         <div className="form-control">
@@ -264,7 +272,7 @@ const YouTubeForm = () => {
             Set Value
           </button>
 
-          <button type="button">Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
       <DevTool control={control} />
