@@ -47,6 +47,7 @@ const YouTubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
 
   const {
@@ -61,6 +62,7 @@ const YouTubeForm = () => {
     submitCount,
   } = formState;
 
+  // Form Submission State
   console.log({
     isSubmitting,
     isSubmitted,
@@ -69,6 +71,7 @@ const YouTubeForm = () => {
     isValid,
   });
 
+  // Field Array
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
@@ -76,16 +79,20 @@ const YouTubeForm = () => {
   // const { name, ref, onChange, onBlur } = register("username");
   renderCount++;
 
+  // Submit For
   const onSubmit = (data) => {
     console.log("Form Submitted", data);
   };
 
+  // Catch Errors
   const onError = (errors) => {
     console.log("Form Errors: ", errors);
   };
 
+  // Watch values
   const watchForm = watch();
 
+  // Watch Values
   useEffect(() => {
     const subscription = watch((value) => {
       console.log(value);
@@ -93,6 +100,7 @@ const YouTubeForm = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  // Get Value
   const handleGetValues = () => {
     console.log("Get Values", getValues());
     console.log(
@@ -101,6 +109,7 @@ const YouTubeForm = () => {
     );
   };
 
+  // Set Value
   const handleSetValue = () => {
     setValue("username", "New Name");
     setValue("email", "", {
@@ -109,6 +118,13 @@ const YouTubeForm = () => {
       shouldDirty: true,
     });
   };
+
+  // Reset
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   console.log({ touchedFields, dirtyFields, isDirty });
 
@@ -167,6 +183,13 @@ const YouTubeForm = () => {
                     !fieldValue.endsWith("baddomain.com") ||
                     "This domain is not supported"
                   );
+                },
+                emailAvailable: async (fieldValue) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+                  const data = await response.json();
+                  return data.length === 0 || "Email Already Exists";
                 },
               },
               required: {
@@ -296,6 +319,9 @@ const YouTubeForm = () => {
 
           {/* <button type="submit" disabled={!isDirty || !isValid}> */}
           <button type="submit">Submit</button>
+          <button type="button" onClick={() => reset()}>
+            Reset
+          </button>
         </div>
       </form>
       <DevTool control={control} />
