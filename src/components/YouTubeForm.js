@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
@@ -53,6 +53,13 @@ const YouTubeForm = () => {
   };
 
   const watchForm = watch();
+
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log(value)
+    });
+    return () => subscription.unsubscribe()
+  }, [watch]);
 
   return (
     <div className="ytform">
