@@ -32,12 +32,14 @@ const YouTubeForm = () => {
         },
         phoneNumbers: ["", ""],
         phNumbers: [{ number: "" }],
+        age: 0,
+        dob: new Date(),
       };
     },
   });
   // In Typescript declare types
   // const form = useForm<formValues>();
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState, watch } = form;
   const { errors } = formState;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -50,9 +52,13 @@ const YouTubeForm = () => {
     console.log("Form Submitted", data);
   };
 
+  const watchForm = watch();
+
   return (
     <div className="ytform">
       <h1>YTForm ({renderCount / 2})</h1>
+      <h2>WatchForm: {JSON.stringify(watchForm)}</h2>
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
@@ -116,8 +122,49 @@ const YouTubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="channel">Channel</label>
-          <input type="text" id="channel" {...register("channel")} />
+          <input
+            type="text"
+            id="channel"
+            {...register("channel", {
+              required: {
+                value: true,
+                message: "Channel is required",
+              },
+            })}
+          />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="age">Age</label>
+          <input
+            type="number"
+            id="age"
+            {...register("age", {
+              valueAsNumber: true,
+              required: {
+                value: true,
+                message: "Age is required",
+              },
+            })}
+          />
+          <p className="error">{errors.age?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="dob">Date of Birth</label>
+          <input
+            type="date"
+            id="dob"
+            {...register("dob", {
+              valueAsDate: true,
+              required: {
+                value: true,
+                message: "Date of Birth is required",
+              },
+            })}
+          />
+          <p className="error">{errors.dob?.message}</p>
         </div>
 
         <div className="form-control">
