@@ -50,6 +50,7 @@ const YouTubeForm = () => {
     getValues,
     setValue,
     reset,
+    trigger,
   } = form;
 
   const {
@@ -319,10 +320,16 @@ const YouTubeForm = () => {
             Set Value
           </button>
 
-          {/* <button type="submit" disabled={!isDirty || !isValid}> */}
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!isDirty || !isValid}>
+            Submit
+          </button>
+          {/* <button type="submit">Submit</button> */}
           <button type="button" onClick={() => reset()}>
             Reset
+          </button>
+
+          <button type="button" onClick={() => trigger()}>
+            Validate
           </button>
         </div>
       </form>
