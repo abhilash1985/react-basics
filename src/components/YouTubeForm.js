@@ -12,7 +12,17 @@ let renderCount = 0;
 // }
 
 const YouTubeForm = () => {
-  const form = useForm();
+  const form = useForm({
+    defaultValues: async() => {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users/1")
+      const data = await response.json()
+      return {
+        username: data.name,
+        email: data.email,
+        channel: "Channel9"
+      }
+    }
+  });
   // In Typescript declare types
   // const form = useForm<formValues>();
   const { register, control, handleSubmit, formState } = form;
