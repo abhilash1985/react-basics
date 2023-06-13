@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useForm, useFieldArray, FieldErrors } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 let renderCount = 0;
@@ -49,7 +49,25 @@ const YouTubeForm = () => {
     setValue,
   } = form;
 
-  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
+  const {
+    errors,
+    touchedFields,
+    dirtyFields,
+    isDirty,
+    isValid,
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
+  } = formState;
+
+  console.log({
+    isSubmitting,
+    isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
+    isValid,
+  });
 
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -62,9 +80,9 @@ const YouTubeForm = () => {
     console.log("Form Submitted", data);
   };
 
-  const onError = (errors: FieldErrors) => {
-    console.log("Form Errors: ", errors)
-  }
+  const onError = (errors) => {
+    console.log("Form Errors: ", errors);
+  };
 
   const watchForm = watch();
 
@@ -276,7 +294,8 @@ const YouTubeForm = () => {
             Set Value
           </button>
 
-          <button type="submit" disabled={!isDirty || !isValid}>Submit</button>
+          {/* <button type="submit" disabled={!isDirty || !isValid}> */}
+          <button type="submit">Submit</button>
         </div>
       </form>
       <DevTool control={control} />
